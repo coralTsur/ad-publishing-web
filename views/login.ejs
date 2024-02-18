@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+<p>Hello!!</p>
+<p><%= message %></p>
+
+<form action="/login" method="post">
+    <div class="field">
+        <label>User Name</label>
+        <div class="control">
+            <input class="input" type="text" name="userName">
+        </div>
+    </div>
+    <div class="field">
+        <label>Password</label>
+        <div class="control">
+            <input class="input" type="text" name="password">
+        </div>
+    </div>
+    <button class="btn btn-lg btn-primary mb-1"  type="submit" class="button is-success">Login</button>
+</form>
+</body>
+</html>
