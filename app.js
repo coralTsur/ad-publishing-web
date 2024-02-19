@@ -32,6 +32,8 @@ db.sequelize.sync()
 var indexRouter = require('./routes/index');
 var formRoute = require('./routes/formhandler');
 var loginRoute = require('./routes/loginhandler');
+var newAdRoute = require('./routes/newadhandler');
+var apiRouter = require('./routes/api');
 
 
 var app = express();
@@ -57,6 +59,8 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/action', formRoute);
 app.use('/login', loginRoute);
+app.use('/new-ad', newAdRoute);
+app.use('/api', apiRouter);
 
 
 

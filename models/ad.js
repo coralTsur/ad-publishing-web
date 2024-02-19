@@ -34,8 +34,11 @@ module.exports = (sequelize) => {
             unique: true,
             validate: { // sequelize level validation
                 isEmail: true
-            }}
-    }, {
+            }},
+        approved: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        }}, {
         sequelize, // We need to pass the connection instance
         modelName: 'Ad',
     });
