@@ -37,11 +37,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             notEmpty: false,
             validate: { // sequelize level validation
-                is: /^\d{3}-\d{7}$|^\d{2}-\d{7}$/
+                //is: /^\d{3}-\d{7}$|^\d{2}-\d{7}$/
             }},
         email: {
             type: DataTypes.STRING,
-            unique: true,
             notEmpty: true,
             validate: { // sequelize level validation
                 isEmail: true

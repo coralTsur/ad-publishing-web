@@ -33,6 +33,19 @@ router.get('/ads', (req, res) => {
         });
 });*/
 
+router.get('/ads/approved', (req, res) => {
+    return db.Ad.findAll({
+        where: { approved: true},
+        order: [['createdAt', 'DESC']]
+    })
+        .then((ads) => res.send(ads))
+        .catch((err) => {
+            console.log('There was an error querying contacts', JSON.stringify(err))
+            err.error = 1; // some error code for client side
+            return res.status(400).send(err) // send the error to the client
+        });
+});
+
 router.post('/ads', (req, res) => {
     const { title, description,price, phone, email } = req.body;
     return db.Ads.create({ title, description,price, phone, email })
@@ -43,7 +56,7 @@ router.post('/ads', (req, res) => {
         })
 });
 
-router.delete('/contacts/:id', (req, res) => {
+router.delete('/ads/:id', (req, res) => {
     const id = parseInt(req.params.id);
     if (req.session.isAdmin) {
         return db.Ad.findByPk(id)
