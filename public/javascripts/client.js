@@ -2,12 +2,12 @@
 
     const ERR_GENERAL = "Some error occurred, please try again later.";
     document.addEventListener('DOMContentLoaded', function () {
-        fetchAndDisplayAprrovedAds();
+        fetchAndDisplayApprovedAds();
 
     });
 
 
-    function fetchAndDisplayAprrovedAds() {
+    function fetchAndDisplayApprovedAds() {
         fetch('./api/ads/approved')
             .then((response) => {
                 if (response.status !== 200)

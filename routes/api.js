@@ -35,7 +35,7 @@ router.get('/ads', (req, res) => {
 
 router.get('/ads/approved', (req, res) => {
     return db.Ad.findAll({
-        where: { approved: true},
+        //where: { approved: true},
         order: [['createdAt', 'DESC']]
     })
         .then((ads) => res.send(ads))
@@ -58,10 +58,11 @@ router.post('/ads', (req, res) => {
 
 router.delete('/ads/:id', (req, res) => {
     const id = parseInt(req.params.id);
+    console.log("router delelte id: ", id);
     if (req.session.isAdmin) {
         return db.Ad.findByPk(id)
             .then((contact) => contact.destroy({force: true}))
-            .then(() => res.status(204).send())
+            .then(() =>res.status(200).json({ message: 'Ad deleted successfully' }))
             .catch((err) => {
                 console.log('***Error deleting contact', JSON.stringify(err))
                 res.status(400).send(err)
@@ -71,18 +72,19 @@ router.delete('/ads/:id', (req, res) => {
         res.render('login',{title: "something wend wrong!!!!!"});
 });
 
-/*router.put('/contacts/:id', (req, res) => {
-    const id = parseInt(req.params.id)
-    return db.Contact.findById(id)
-        .then((contact) => {
-            const { firstName, lastName, phone } = req.body
-            return contact.update({ firstName, lastName, phone })
-                .then(() => res.send(contact))
+router.put('/ads/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    return db.Ad.findByPk(id)
+        .then((ad) => {
+            const { approved } = req.body;
+            return ad.update({ approved })
+               // .then(() => res.send(ad))
+                .then(() =>res.status(200).json({ message: 'Ad approved successfully' }))
                 .catch((err) => {
                     console.log('***Error updating contact', JSON.stringify(err))
                     res.status(400).send(err)
                 })
         })
 });
-*/
+
 module.exports = router;

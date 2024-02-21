@@ -7,7 +7,15 @@ var router = express.Router();
 router.get('/', (req, res) => {
     if (!req.session.isAdmin)
         res.render('login',{message: "login page!"}); // redirect to the login page
+    else
+        res.render('admin',{message:"Admin page"});
 });
+
+router.get('/logout', (req, res) => {
+    req.session.isAdmin = false;
+    res.render('login', {message: "login page!"});
+});
+
 
 router.post('/', (req, res) => {
 

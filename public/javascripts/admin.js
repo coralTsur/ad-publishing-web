@@ -3,6 +3,8 @@
     const ERR_GENERAL = "Some error occurred, please try again later.";
     document.addEventListener('DOMContentLoaded', function () {
         fetchAndDisplayAllAds();
+        listenDeleteButton();
+        listenApproveButton();
     });
     function fetchAndDisplayAllAds() {
         fetch('./api/ads/')
@@ -12,7 +14,7 @@
                 return response.json();
             })
             .then((data) => {
-              //  document.getElementById("ads").innerHTML = data.map((item) => `<li> title: ${item.title} , Description:${item.description}, Email: ${item.email}, Phone: ${item.phone}, Approved: ${item.approved}</li>`).join('');
+                //  document.getElementById("ads").innerHTML = data.map((item) => `<li> title: ${item.title} , Description:${item.description}, Email: ${item.email}, Phone: ${item.phone}, Approved: ${item.approved}</li>`).join('');
                 document.getElementById("ads").innerHTML = data.map((item) =>showAdsHTML(item)).join('');
 
             })
@@ -29,13 +31,60 @@
         res += item.price+ "<br>";
         res += item.phone+ "<br>";
         res += item.email +"</h5>";
+        console.log("inside show ads: ", item.approved);
         if(!item.approved)
-            res += "<div class=\"button-container\"> <button class =\"saveClass btn btn-secondary\"" +
+            res += "<div class=\"button-container\"> <button class =\"approveClass btn btn-secondary\"" +
                 " data-id=\"" +item.id + "\" >Approve Ad</button>";
 
         res += "<button class=\"delClass btn btn-danger\" data-id=\"" + item.id + "\">Delete Ad</button><br>";
         res += "</div></div><div class =\"col-md-1 \"></\div><br>";
         return res;
+    }
+
+    let listenDeleteButton=()=>{
+        document.getElementById("ads").addEventListener("click", function(event) {
+            if (event.target.classList.contains("delClass")) {
+                let idAdDelete = event.target.dataset.id;
+                fetch('./api/ads/' + idAdDelete, {method:"DELETE"})
+                    .then((response) => {
+                        if (response.status < 200 || response.status > 300)
+                            throw new Error(response.statusText);
+                        return response.json();
+                    })
+                    .then(() => {
+                        // Fetch and display ads after successful deletion
+                        fetchAndDisplayAllAds();
+                    })
+                    .catch((err) => {
+                        document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
+                    });
+            }
+        });
+    }
+
+    let listenApproveButton=()=>{
+        document.getElementById("ads").addEventListener("click", function(event) {
+            if (event.target.classList.contains("approveClass")) {
+                let idAdClickApprove = event.target.dataset.id;
+                fetch('./api/ads/' + idAdClickApprove, {method:"PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ approved: true })})
+                    .then((response) => {
+                        if (response.status < 200 || response.status > 300)
+                            throw new Error(response.statusText);
+                        return response.json();
+                    })
+                    .then(() => {
+                        // Fetch and display ads after successful deletion
+                        fetchAndDisplayAllAds();
+                    })
+                    .catch((err) => {
+                        document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
+                    });
+            }
+        });
     }
 
 })();
