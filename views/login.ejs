@@ -9,23 +9,22 @@
 
 </head>
 <body>
-<p>Hello!!</p>
 <p><%= message %></p>
+<div class ="row text-center">
 
 <form action="/admin-area" method="post">
-    <div class="field">
-        <label>User Name</label>
-        <div class="control">
-            <input class="input" type="text" name="userName">
-        </div>
+    <div class="form1 form-floating mb-3">
+        <input class="form-control" id="userName" name="userName" placeholder="userName">
+        <label for="userName">User Name</label>
     </div>
-    <div class="field">
-        <label>Password</label>
-        <div class="control">
-            <input class="input" type="text" name="password">
-        </div>
+    <div class="form1 form-floating mb-3">
+        <input class="form-control" id="pass" type="text" name="password" placeholder="password">
+        <label for="pass">Password</label>
     </div>
-    <button class="btn btn-lg btn-primary mb-1"  type="submit" class="button is-success">Login</button>
+
+    <button class="btn btn-lg btn-success mb-1"  type="submit" class="button is-success">Login</button>
 </form>
+</div>
+
 </body>
 </html>

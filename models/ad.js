@@ -13,40 +13,41 @@ module.exports = (sequelize) => {
     Ad.init({
         title: {
             type: DataTypes.STRING,
-            allowNull: false, // constraint level validation (SQL level validation)
-            validate: { // sequelize level validation
-                isAlpha: true,
-                len: [1, 20],
-            }
+         //   allowNull: false, // constraint level validation (SQL level validation)
+          //  validate: { // sequelize level validation
+           //     isAlpha: true,
+           //     len: [1, 20],
+           // }
         },
         description: {
             type: DataTypes.STRING,
-            notEmpty: false,
-            validate: { // sequelize level validation
-                len: [0,200],
-            }
+          //  notEmpty: false,
+          //  validate: { // sequelize level validation
+           //     len: [0,200],
+           // }
         },
         price: {
             type: DataTypes.STRING,
-            notEmpty: true,
-            validate: { // sequelize level validation
-                isNumeric: true,
-                min: 0,
-            }},
-        phone: {
+            // notEmpty: true,
+            // validate: { // sequelize level validation
+//isNumeric: true,
+            // min: 0,
+            // }},
+        },  phone:
+    {
+        type: DataTypes.STRING,
+        //  notEmpty: false,
+        // validate: { // sequelize level validation
+        //is: /^\d{3}-\d{7}$|^\d{2}-\d{7}$/
+        // }},
+    } ,email: {
             type: DataTypes.STRING,
-            notEmpty: false,
-            validate: { // sequelize level validation
-                //is: /^\d{3}-\d{7}$|^\d{2}-\d{7}$/
-            }},
-        email: {
-            type: DataTypes.STRING,
-            notEmpty: true,
-            unique: false,
-            validate: { // sequelize level validation
-                isEmail: true
-            }},
-        approved: {
+            //  notEmpty: true,
+            // unique: false,
+            // validate: { // sequelize level validation
+            //      isEmail: true
+            //  }},
+        },  approved: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         }}, {

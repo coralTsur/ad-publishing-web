@@ -7,6 +7,7 @@
     });
 
     function fetchAndDisplayApprovedAds() {
+        show("spin");
         fetch('./api/ads/approved')
             .then((response) => {
                 if (response.status !== 200)
@@ -15,6 +16,7 @@
             })
             .then((data) => {
                 document.getElementById("data").innerHTML = data.map((item) => `<li> title: ${item.title} , Description:${item.description}, Email: ${item.email}, Phone: ${item.phone}, Approved: ${item.approved}</li>`).join('');
+                hide("spin");
             })
             .catch((err) => {
                 document.getElementById("data").innerHTML = `${ERR_GENERAL} ${err.message}`;

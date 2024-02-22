@@ -26,25 +26,30 @@
 
 
     let showAdsHTML=(item)=> {
-        let res = " <div class=\"col-12 col-md-3 border bg-body-secondary\">"
+        let res = "<div class=\"col-12 col-md-3 border bg-body-secondary\">";
         res += "<h5>" + item.title + "<br>";
         res += item.description + "<br>";
-        res += item.price+ "<br>";
-        res += item.phone+ "<br>";
-        res += item.email +"</h5>";
-        console.log("inside show ads: ", item.approved);
-        if(!item.approved)
-            res += "<div class=\"button-container\"> <button class =\"approveClass btn btn-secondary\"" +
-                " data-id=\"" +item.id + "\" >Approve Ad</button>";
+        res += item.price + "<br>";
+        res += item.phone + "<br>";
+        res += item.email + "</h5>";
+        if (!item.approved) {
+            res += "<div class=\"button-container\">";
+            res += "<button class=\"approveClass btn btn-secondary\" data-id=\"" + item.id + "\">Approve Ad</button>";
+            res += "</div>";
+        }
 
+        res += "<div class=\"button-container\">";
         res += "<button class=\"delClass btn btn-danger\" data-id=\"" + item.id + "\">Delete Ad</button><br>";
-        res += "</div></div><div class =\"col-md-1 \"></\div><br>";
+        res += "</div></div><div class=\"col-md-1\"></div><br><br>";
+
         return res;
+
     }
 
     let listenDeleteButton=()=>{
         document.getElementById("ads").addEventListener("click", function(event) {
             if (event.target.classList.contains("delClass")) {
+                show("spin");
                 let idAdDelete = event.target.dataset.id;
                 fetch('./api-admin/ads/' + idAdDelete, {method:"DELETE"})
                     .then((response) => {
@@ -54,6 +59,7 @@
                     })
                     .then(() => {
                         // Fetch and display ads after successful deletion
+                        hide("spin");
                         fetchAndDisplayAllAds();
                     })
                     .catch((err) => {
@@ -66,8 +72,9 @@
     let listenApproveButton=()=>{
         document.getElementById("ads").addEventListener("click", function(event) {
             if (event.target.classList.contains("approveClass")) {
+                show("spin");
                 let idAdClickApprove = event.target.dataset.id;
-                fetch('./api-admin/ads/' + idAdClickApprove, {method:"PUT",
+                fetch('./api-admin/ads/' + idAdClickApprove, {method: "PUT",
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -79,6 +86,7 @@
                     })
                     .then(() => {
                         // Fetch and display ads after successful deletion
+                        hide("spin");
                         fetchAndDisplayAllAds();
                     })
                     .catch((err) => {

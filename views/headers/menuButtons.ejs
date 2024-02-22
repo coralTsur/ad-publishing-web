@@ -4,10 +4,30 @@
     <title>Adding a contact</title>
 </head>
 <body>
-<ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/new-ad">Add New Ad</a></li>
-    <li><a href="/admin-area/requests-management">Admin Area</a></li>
-</ul>
+<div class="container-fluid bg-light">
+    <div class="row text-center">
+        <div class="col-12 container-fluid ">
+            <img src="images/Cover.jpg" style = "width:100%" alt="Cover Photo"/>
+        </div>
+    </div>
+    <div class = "row bg-secondary-subtle">
+        <div class = "col-1"></div>
+        <div class = "col-12 col-md-10">
+            <nav class="navbar ">
+                <div class="container-fluid justify-content-start">
+                    <form action="/" method="get">
+                        <button class="btn btn-lg btn-outline-success me-2" id = "search" type="submit">Home</button>
+                    </form>
+                    <form action="/new-ad" method="get">
+                        <button class="btn btn-lg btn-outline-success me-2" id ="savedPhotos" type="submit">Add New Ad</button>
+                    </form>
+                    <form action="/admin-area/requests-management" method="get">
+                        <button class="btn btn-lg btn-outline-success me-2" id ="savedPhotos" type="submit">Admin Area</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
 </body>
 </html>
