@@ -12,9 +12,14 @@
 <body>
 <script src="/javascripts/admin.js"> </script>
 <p><%= message %></p>
-<form action="/login/logout"  method="get">
+<form action="/admin-area/logout"  method="get">
     <button class=" btn btn-danger">Logout</button><br>
 </form>
+<div class="text-center " id = "spin">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
 
 <div class="container">
 <div class="row">

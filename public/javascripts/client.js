@@ -6,7 +6,6 @@
 
     });
 
-
     function fetchAndDisplayApprovedAds() {
         fetch('./api/ads/approved')
             .then((response) => {
@@ -21,6 +20,11 @@
                 document.getElementById("data").innerHTML = `${ERR_GENERAL} ${err.message}`;
             });
     }
-
+    let hide = (idName) => {
+        document.getElementById(idName).classList.add('d-none');
+    }
+    let show = (idName) => {
+        document.getElementById(idName).classList.remove('d-none');
+    }
 
 })();

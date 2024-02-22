@@ -7,7 +7,8 @@
         listenApproveButton();
     });
     function fetchAndDisplayAllAds() {
-        fetch('./api/ads/')
+        show("spin");
+        fetch('./api-admin/ads/')
             .then((response) => {
                 if (response.status !== 200)
                     throw new Error(response.statusText);
@@ -16,7 +17,7 @@
             .then((data) => {
                 //  document.getElementById("ads").innerHTML = data.map((item) => `<li> title: ${item.title} , Description:${item.description}, Email: ${item.email}, Phone: ${item.phone}, Approved: ${item.approved}</li>`).join('');
                 document.getElementById("ads").innerHTML = data.map((item) =>showAdsHTML(item)).join('');
-
+                hide("spin");
             })
             .catch((err) => {
                 document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
@@ -45,7 +46,7 @@
         document.getElementById("ads").addEventListener("click", function(event) {
             if (event.target.classList.contains("delClass")) {
                 let idAdDelete = event.target.dataset.id;
-                fetch('./api/ads/' + idAdDelete, {method:"DELETE"})
+                fetch('./api-admin/ads/' + idAdDelete, {method:"DELETE"})
                     .then((response) => {
                         if (response.status < 200 || response.status > 300)
                             throw new Error(response.statusText);
@@ -66,7 +67,7 @@
         document.getElementById("ads").addEventListener("click", function(event) {
             if (event.target.classList.contains("approveClass")) {
                 let idAdClickApprove = event.target.dataset.id;
-                fetch('./api/ads/' + idAdClickApprove, {method:"PUT",
+                fetch('./api-admin/ads/' + idAdClickApprove, {method:"PUT",
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -85,6 +86,13 @@
                     });
             }
         });
+    }
+
+    let hide = (idName) => {
+        document.getElementById(idName).classList.add('d-none');
+    }
+    let show = (idName) => {
+        document.getElementById(idName).classList.remove('d-none');
     }
 
 })();

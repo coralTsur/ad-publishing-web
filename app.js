@@ -28,12 +28,13 @@ db.sequelize.sync()
   console.log(err);
 });
 
-
 var indexRouter = require('./routes/index');
 var formRoute = require('./routes/formhandler');
-var loginRoute = require('./routes/loginhandler');
+var adminRoute = require('./routes/loginhandler');
 var newAdRoute = require('./routes/newadhandler');
 var apiRouter = require('./routes/api');
+var apiAdminRouter = require('./routes/apiAdmin');
+
 
 
 var app = express();
@@ -55,13 +56,19 @@ app.use(session({
   cookie: {maxAge: 10*60*1000 },// milliseconds!
   isAdmin: false
 }));
+app.use('/admin-area/api-admin', (req,res,next)=>{
+  if(!req.session.isAdmin){
+    return  res.render('login',{message: "login page!"});
+  }
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/action', formRoute);
-app.use('/login', loginRoute);
+app.use('/admin-area', adminRoute);
+app.use('/admin-area/api-admin', apiAdminRouter);
 app.use('/new-ad', newAdRoute);
 app.use('/api', apiRouter);
-
 
 
 // catch 404 and forward to error handler
