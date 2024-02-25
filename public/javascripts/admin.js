@@ -19,11 +19,12 @@
             .then((data) => {
                 //  document.getElementById("ads").innerHTML = data.map((item) => `<li> title: ${item.title} , Description:${item.description}, Email: ${item.email}, Phone: ${item.phone}, Approved: ${item.approved}</li>`).join('');
                 innerAds.innerHTML = data.map((item) =>showAdsHTML(item)).join('');
-                hide("spin");
             })
             .catch((err) => {
                 innerAds.innerHTML = `${ERR_GENERAL} ${err.message}`;
-            });
+            }).finally(() => {
+            hide("spin");
+        });
     }
 
 
@@ -32,9 +33,9 @@
         res += "<div class = \"row\">";
         res += "<h3>"+ item.title + "<br></h3>";
         res += "<h6>" + item.description + "<br>";
-        res += "<br><p>Price: " + item.price + "</p>";
-        res += "<p>Phone: " + item.phone + "</p>";
-        res += "<p>Email: " + item.email + "</p></h6>";
+        res += "<br><p>" + item.price + "$ </p>";
+        res += "<p>" + item.phone + "</p>";
+        res += "<p>" + item.email + "</p></h6>";
         res += "<div class=\"button-container text-center \">";
         if (!item.approved)
             res += "<button class=\"approveClass btn btn-secondary\" data-id=\"" + item.id + "\">Approve Ad</button>";
@@ -57,14 +58,15 @@
                         return response.json();
                     })
                     .then(() => {
-                        // Fetch and display ads after successful deletion
-                        hide("spin");
                         fetchAndDisplayAllAds();
                     })
                     .catch((err) => {
                         document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
 
-                    });
+                    }).finally(() => {
+                    hide("spin");
+                });
+
             }
         });
     }
@@ -86,12 +88,14 @@
                     })
                     .then(() => {
                         // Fetch and display ads after successful deletion
-                        hide("spin");
                         fetchAndDisplayAllAds();
                     })
                     .catch((err) => {
                         document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
-                    });
+
+                    }).finally(() => {
+                    hide("spin");
+                });
             }
         });
     }

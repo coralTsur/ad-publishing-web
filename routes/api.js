@@ -20,9 +20,8 @@ router.get('/ads/approved', (req, res) => {
     })
         .then((ads) => res.send(ads))
         .catch((err) => {
-            console.log('There was an error querying contacts', JSON.stringify(err))
-            err.error = 1; // some error code for client side
-            return res.status(400).send(err) // send the error to the client
+            err.error = 1;
+            return res.status(400).send(err)
         });
 });
 

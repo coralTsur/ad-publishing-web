@@ -7,9 +7,8 @@ router.get('/ads', (req, res) => {
     })
         .then((ads) => res.send(ads))
         .catch((err) => {
-            console.log('There was an error querying contacts', JSON.stringify(err))
-            err.error = 1; // some error code for client side
-            return res.status(400).send(err) // send the error to the client
+            err.error = 1;
+            return res.status(400).send(err)
         });
 });
 router.post('/ads', (req, res) => {
@@ -28,8 +27,7 @@ router.delete('/ads/:id', (req, res) => {
             .then((contact) => contact.destroy({force: true}))
             .then(() =>res.status(200).json({ message: 'Ad deleted successfully' }))
             .catch((err) => {
-                console.log('***Error deleting contact', JSON.stringify(err))
-                res.status(400).send(err)
+                res.status(400).send(err);
             })
 });
 
@@ -42,8 +40,7 @@ router.put('/ads/:id', (req, res) => {
                 // .then(() => res.send(ad))
                 .then(() =>res.status(200).json({ message: 'Ad approved successfully' }))
                 .catch((err) => {
-                    console.log('***Error updating contact', JSON.stringify(err))
-                    res.status(400).send(err)
+                    res.status(400).send(err);
                 })
         })
 });

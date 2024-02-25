@@ -1,4 +1,8 @@
 'use strict';
+//const { MAX_DESC, MAX_TITLE, MIN_PRICE } = require('/../config/consts.js');
+const MAX_DESC = 200;
+const MAX_TITLE = 20;
+const MIN_PRICE = 0;
 
 const { DataTypes, Model } = require('sequelize');
 
@@ -15,13 +19,13 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             notEmpty: false,
             validate: {
-                len: [1, 20],
+                len: [1, MAX_TITLE],
             }
         },
         description: {
             type: DataTypes.STRING,
             validate: {
-                len: [0,200],
+                len: [0,MAX_DESC],
             }
         },
         price: {
@@ -29,7 +33,7 @@ module.exports = (sequelize) => {
             notEmpty: false,
             validate: {
                 isNumeric: true,
-                min: 0,
+                min: MIN_PRICE,
             }},
       phone:
     {

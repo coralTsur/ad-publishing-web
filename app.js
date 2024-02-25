@@ -58,7 +58,7 @@ app.use(session({
 }));
 app.use('/admin-area/api-admin', (req,res,next)=>{
   if(!req.session.isAdmin){
-    return  res.render('login',{message: "login page!"});
+    return  res.render('login',{message: ""});
   }
   next();
 });

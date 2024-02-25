@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <%- include('headers/menuButtons') %>
 
     <title>Admin Page hello</title>
 
 </head>
 <body>
+<div class="alert alert-success text-center" role="alert">
+    <h1>Admin-area</h1>
+</div>
+<%- include('headers/menuButtons') %>
 <script src="/javascripts/admin.js"> </script>
 <p><%= message %></p>
 <form action="/admin-area/logout"  method="get">
@@ -21,7 +24,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container container-fluid">
     <br>
 <div class="row" id="ads"></div>
 </div>
