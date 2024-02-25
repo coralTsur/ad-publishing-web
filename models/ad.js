@@ -13,46 +13,47 @@ module.exports = (sequelize) => {
     Ad.init({
         title: {
             type: DataTypes.STRING,
-         //   allowNull: false, // constraint level validation (SQL level validation)
-          //  validate: { // sequelize level validation
-           //     isAlpha: true,
-           //     len: [1, 20],
-           // }
+            notEmpty: false,
+            validate: {
+                len: [1, 20],
+            }
         },
         description: {
             type: DataTypes.STRING,
-          //  notEmpty: false,
-          //  validate: { // sequelize level validation
-           //     len: [0,200],
-           // }
+            validate: {
+                len: [0,200],
+            }
         },
         price: {
             type: DataTypes.STRING,
-            // notEmpty: true,
-            // validate: { // sequelize level validation
-//isNumeric: true,
-            // min: 0,
-            // }},
-        },  phone:
+            notEmpty: false,
+            validate: {
+                isNumeric: true,
+                min: 0,
+            }},
+      phone:
     {
         type: DataTypes.STRING,
-        //  notEmpty: false,
-        // validate: { // sequelize level validation
-        //is: /^\d{3}-\d{7}$|^\d{2}-\d{7}$/
-        // }},
-    } ,email: {
-            type: DataTypes.STRING,
-            //  notEmpty: true,
-            // unique: false,
-            // validate: { // sequelize level validation
-            //      isEmail: true
-            //  }},
-        },  approved: {
-            type: DataTypes.BOOLEAN,
+        validate: {
+        is:/^([0-9]{2}-[0-9]{7}|[0-9]{3}-[0-9]{7}|)$/
+        }},
+    email: {
+        type: DataTypes.STRING,
+        notEmpty: false,
+         validate: {
+            isEmail:true
+         }
+        //  isEmailCustom(value) {
+        // Implement your custom email validation logic here
+        //  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //   }
+        //  }},
+    },approved: {
+        type: DataTypes.BOOLEAN,
             defaultValue: false,
-        }}, {
-        sequelize, // We need to pass the connection instance
-        modelName: 'Ad',
-    });
-    return Ad;
+    }}, {
+    sequelize, // We need to pass the connection instance
+    modelName: 'Ad',
+});
+return Ad;
 };

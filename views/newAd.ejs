@@ -12,37 +12,37 @@
 
     <form action="/action/add" method="post">
 
-    <div class="form1 form-floating mb-3">
-        <input class="form-control" type="text" name="title" maxlength="20" required placeholder="title">
-        <label for="pass">Title</label>
-    </div>
-
-    <div class="form1 form-floating mb-3">
-        <input class="form-control" type="text" name="description" maxlength="200" placeholder="description">
-        <label for="pass">Description</label>
-    </div>
-
-    <div class="form1 form-floating mb-3">
-        <input class="form-control" type="number" name="price" min=0 required placeholder="price">
-        <label for="pass">Price</label>
-    </div>
-
-    <div class="form1 form-floating mb-3">
-        <input class="form-control" type="text" name="phone" id="phoneInput" pattern="[0-9]{2}-[0-9]{7}|[0-9]{3}-[0-9]{7}" placeholder="price">
-        <label for="pass">Phone</label>
-    </div>
-
-    <div class="form1 form-floating mb-3">
-        <input class="form-control" type="email" name="email" required placeholder="email">
-        <label for="pass">Phone</label>
-    </div>
-
-    <div class="field mt-3">
-        <div class="control">
-            <button class="btn btn-lg btn-success mb-1" type="submit" class="button is-success">Save to database</button>
+        <div class="form1 form-floating mb-3">
+            <input class="form-control" type="text" name="title" maxlength="20" required placeholder="title">
+            <label for="pass">Title</label>
         </div>
-    </div>
-</form>
+
+        <div class="form1 form-floating mb-3">
+            <input class="form-control" type="text" name="description" maxlength="200" placeholder="description">
+            <label for="pass">Description</label>
+        </div>
+
+        <div class="form1 form-floating mb-3">
+            <input class="form-control" type="number" name="price" min=0 required placeholder="price">
+            <label for="pass">Price</label>
+        </div>
+
+        <div class="form1 form-floating mb-3">
+            <input class="form-control" type="text" name="phone" id="phoneInput" pattern="/^([0-9]{2}-[0-9]{7}|[0-9]{3}-[0-9]{7}|)$/" placeholder="price">
+            <label for="pass">Phone</label>
+        </div>
+
+        <div class="form1 form-floating mb-3">
+            <input class="form-control" type = "email" name="email" required placeholder="email">
+            <label for="pass">Email</label>
+        </div>
+
+        <div class="field mt-3">
+            <div class="control">
+                <button class="btn btn-lg btn-success mb-1" type="submit" class="button is-success">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>

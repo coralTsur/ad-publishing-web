@@ -24,7 +24,6 @@ router.post('/ads', (req, res) => {
 
 router.delete('/ads/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    console.log("router delelte id: ", id);
         return db.Ad.findByPk(id)
             .then((contact) => contact.destroy({force: true}))
             .then(() =>res.status(200).json({ message: 'Ad deleted successfully' }))

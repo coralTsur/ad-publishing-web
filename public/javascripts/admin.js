@@ -5,8 +5,10 @@
         fetchAndDisplayAllAds();
         listenDeleteButton();
         listenApproveButton();
+
     });
     function fetchAndDisplayAllAds() {
+        const innerAds = document.getElementById("ads");
         show("spin");
         fetch('./api-admin/ads/')
             .then((response) => {
@@ -16,34 +18,31 @@
             })
             .then((data) => {
                 //  document.getElementById("ads").innerHTML = data.map((item) => `<li> title: ${item.title} , Description:${item.description}, Email: ${item.email}, Phone: ${item.phone}, Approved: ${item.approved}</li>`).join('');
-                document.getElementById("ads").innerHTML = data.map((item) =>showAdsHTML(item)).join('');
+                innerAds.innerHTML = data.map((item) =>showAdsHTML(item)).join('');
                 hide("spin");
             })
             .catch((err) => {
-                document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
+                innerAds.innerHTML = `${ERR_GENERAL} ${err.message}`;
             });
     }
 
 
     let showAdsHTML=(item)=> {
-        let res = "<div class=\"col-12 col-md-3 border bg-body-secondary\">";
-        res += "<h5>" + item.title + "<br>";
-        res += item.description + "<br>";
-        res += item.price + "<br>";
-        res += item.phone + "<br>";
-        res += item.email + "</h5>";
-        if (!item.approved) {
-            res += "<div class=\"button-container\">";
+        let res = "<div class=\"col-12 col-md-3 border bg-light bg-body-secondary text-break\">";
+        res += "<div class = \"row\">";
+        res += "<h3>"+ item.title + "<br></h3>";
+        res += "<h6>" + item.description + "<br>";
+        res += "<br><p>Price: " + item.price + "</p>";
+        res += "<p>Phone: " + item.phone + "</p>";
+        res += "<p>Email: " + item.email + "</p></h6>";
+        res += "<div class=\"button-container text-center \">";
+        if (!item.approved)
             res += "<button class=\"approveClass btn btn-secondary\" data-id=\"" + item.id + "\">Approve Ad</button>";
-            res += "</div>";
-        }
 
-        res += "<div class=\"button-container\">";
         res += "<button class=\"delClass btn btn-danger\" data-id=\"" + item.id + "\">Delete Ad</button><br>";
-        res += "</div></div><div class=\"col-md-1\"></div><br><br>";
+        res += "</div></div></div><div class=\"col-md-1\"></div><br><br>";
 
         return res;
-
     }
 
     let listenDeleteButton=()=>{
@@ -64,6 +63,7 @@
                     })
                     .catch((err) => {
                         document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
+
                     });
             }
         });

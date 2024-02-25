@@ -16,11 +16,11 @@ const handleAddRoute1 = (req, res, next) => {
                 "successfully posted and is waiting for approval" }))
         .catch((err) => {
             if (err instanceof Sequelize.ValidationError) {
-                res.render('added', { message: `Invalid input: ${err}` });
+                res.render('error', { message: `Invalid input:  ${err}`, error:err});
             } else if (err instanceof Sequelize.DatabaseError) {
-                res.render('added', { message: `Database error: ${err}` });
+                res.render('error', { message: `Database error:  ${err}`, error:err});
             } else {
-                res.render('added', { message: `Unexpected error: ${err}` });
+                res.render('error', { message: `Unexpected error:  ${err}`, error:err});
             }
         })
         .finally(() => next()); // Call next to proceed to the next middleware or route

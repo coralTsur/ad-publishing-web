@@ -63,6 +63,9 @@ app.use('/admin-area/api-admin', (req,res,next)=>{
   next();
 });
 
+
+
+
 app.use('/', indexRouter);
 app.use('/action', formRoute);
 app.use('/admin-area', adminRoute);

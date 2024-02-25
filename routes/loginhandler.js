@@ -10,12 +10,29 @@ var router = express.Router();
         res.render('admin',{message:"Admin page"});
 });*/
 
-router.get('/requests-management', (req, res) => {
+router.get('/', (req, res) => {
     if (!req.session.isAdmin)
         res.render('login',{message: "login page!"}); // redirect to the login page
     else
-        res.render('admin',{message:"Admin page"});
+        res.redirect('/admin-area/requests-management');
 });
+
+
+let middleware1=(req,res,next )=> {
+    console.log("middle1");
+    if (!req.session.isAdmin) {
+        //return res.render('login', {message: "login page!"});
+        return res.redirect('/admin-area');
+
+    }
+    next();
+};
+let middleware2=(req,res, next)=> {
+    console.log("middle2");
+
+    res.render('admin',{message: "admin page!"}); // redirect to the login page
+    next();
+};
 
 router.get('/logout', (req, res) => {
     req.session.isAdmin = false;
@@ -46,6 +63,8 @@ router.post('/', (req, res) => {
         })
 
 });
+
+router.get('/requests-management', middleware1, middleware2);
 
 
 module.exports = router;

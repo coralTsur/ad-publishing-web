@@ -4,13 +4,8 @@ const { DataTypes, Model } = require('sequelize');
 const db = require("./index");
 
 module.exports = (sequelize) => {
-    class User extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
-    }
+    class User extends Model { }
+
     User.init({
         userName: DataTypes.STRING,
         password: {
