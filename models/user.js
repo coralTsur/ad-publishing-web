@@ -14,13 +14,10 @@ module.exports = (sequelize) => {
             validate: { // sequelize level validation
             }
         },
-
     }, {
         sequelize, // We need to pass the connection instance
         modelName: 'User',
     });
-
-
 
     return User;
 };

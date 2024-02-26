@@ -8,23 +8,25 @@ const session = require('express-session');
 const db = require('./models/index');
 //create the tables if don't exist
 db.sequelize.sync()
-    .then(()=>
-    {
+    .then(()=> {
       console.log('Database Synced');
       return Promise.all([
         db.User.findOrCreate({
-          where:{userName:'admin'},
-          defaults:{userName:'admin', password:'admin'}
-        }),
+          where: {userName: 'admin'},
+          defaults: {userName: 'admin', password: 'admin'}
+        })])
+    })
+    .then(()=>    {
+      return Promise.all([
         db.User.findOrCreate({
           where:{userName:'admin2'},
           defaults:{userName:'admin2', password:'admin2'}
         })
-      ]);
 
-    }).then(()=>{
-  console.log("Admin user created");
-}).catch((err)=>{
+      ])  })
+    .then(()=>{
+      console.log("Admin user created");
+    }).catch((err)=>{
   console.log(err);
 });
 

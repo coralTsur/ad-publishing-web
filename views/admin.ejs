@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,9 @@
 <script src="/javascripts/admin.js"> </script>
 <p><%= message %></p>
 <form action="/admin-area/logout"  method="get">
-    <button class=" btn btn-success">Logout</button><br>
+    <div class="d-grid col-2 mx-auto">
+        <button class=" btn btn-success">Logout</button><br>
+    </div>
 </form>
 <div class="text-center" id = "spin">
     <div class="spinner-border" role="status">
@@ -26,7 +28,8 @@
 
 <div class="container container-fluid">
     <br>
-<div class="row" id="ads"></div>
+    <div class="row" id="adsError"></div>
+    <div class="row" id="ads"></div>
 </div>
 
 

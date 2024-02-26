@@ -1,61 +1,12 @@
 var express = require('express');
-const db = require("../models");
 const Sequelize = require("sequelize");
 var router = express.Router();
+const adminAreaController = require('../controllers/adminarea');
 
 
-router.get('/', (req, res) => {
-    if (!req.session.isAdmin)
-        res.render('login',{message: ""}); // redirect to the login page
-    else
-        res.redirect('/admin-area/requests-management');
-});
-
-
-let middleware1=(req,res,next )=> {
-    console.log("middle1");
-    if (!req.session.isAdmin) {
-        return res.redirect('/admin-area');
-
-    }
-    next();
-};
-let middleware2=(req,res, next)=> {
-    console.log("middle2");
-
-    res.render('admin',{message: ""}); // redirect to the login page
-    next();
-};
-
-router.get('/logout', (req, res) => {
-    req.session.isAdmin = false;
-    res.redirect('/');
-});
-
-router.post('/', (req, res) => {
-    const {userName, password} = req.body; //
-
-    return db.User.findOne({
-        where: {
-            userName: userName,
-            password: password
-        }
-    })
-        .then((user) => {
-            if (user) {
-                req.session.isAdmin = true;
-                res.redirect('/admin-area/requests-management');
-            }
-            else
-                res.render('login', {message: "Invalid username or password"});
-        })
-        .catch((err) => {
-            res.render('error', { message: `Unexpected error:  ${err}`, error:err});
-        })
-
-});
-
-router.get('/requests-management', middleware1, middleware2);
-
+router.get('/', adminAreaController.getSession);
+router.get('/logout', adminAreaController.getLogout);
+router.post('/', adminAreaController.postSetSession);
+router.get('/requests-management', adminAreaController.getRequestsManagement1, adminAreaController.getRequestsManagement2);
 
 module.exports = router;

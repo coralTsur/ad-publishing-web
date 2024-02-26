@@ -1,12 +1,18 @@
 (function () {
 
     const ERR_GENERAL = "Some error occurred, please try again later.";
+    const ERR_GENERAL_ALREADY_DONE = "This ad was handled by some other admin, please <a href='/admin-area' >reload</a>";
     document.addEventListener('DOMContentLoaded', function () {
         fetchAndDisplayAllAds();
         listenDeleteButton();
         listenApproveButton();
 
     });
+
+    /**
+     * use fetch to req all ads
+     * insert to the DOM all received data
+     */
     function fetchAndDisplayAllAds() {
         const innerAds = document.getElementById("ads");
         show("spin");
@@ -17,7 +23,6 @@
                 return response.json();
             })
             .then((data) => {
-                //  document.getElementById("ads").innerHTML = data.map((item) => `<li> title: ${item.title} , Description:${item.description}, Email: ${item.email}, Phone: ${item.phone}, Approved: ${item.approved}</li>`).join('');
                 innerAds.innerHTML = data.map((item) =>showAdsHTML(item)).join('');
             })
             .catch((err) => {
@@ -28,8 +33,13 @@
     }
 
 
+    /**
+     * return html ad.
+     * @param item
+     * @returns {string}
+     */
     let showAdsHTML=(item)=> {
-        let res = "<div class=\"col-12 col-md-3 border bg-light bg-body-secondary text-break\">";
+        let res = "<div class=\"col-12 col-md-5 col-lg-3 border bg-light bg-body-secondary text-break\">";
         res += "<div class = \"row\">";
         res += "<h3>"+ item.title + "<br></h3>";
         res += "<h6>" + item.description + "<br>";
@@ -46,6 +56,9 @@
         return res;
     }
 
+    /**
+     * listen to delete button, and using fetch delete ads
+     */
     let listenDeleteButton=()=>{
         document.getElementById("ads").addEventListener("click", function(event) {
             if (event.target.classList.contains("delClass")) {
@@ -61,7 +74,7 @@
                         fetchAndDisplayAllAds();
                     })
                     .catch((err) => {
-                        document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
+                        document.getElementById("adsError").innerHTML = `<h5 class="text-center">${ERR_GENERAL_ALREADY_DONE} </h5>`;
 
                     }).finally(() => {
                     hide("spin");
@@ -71,6 +84,9 @@
         });
     }
 
+    /*
+    listen to approved button, and using fetch update ads
+     */
     let listenApproveButton=()=>{
         document.getElementById("ads").addEventListener("click", function(event) {
             if (event.target.classList.contains("approveClass")) {
@@ -91,7 +107,7 @@
                         fetchAndDisplayAllAds();
                     })
                     .catch((err) => {
-                        document.getElementById("ads").innerHTML = `${ERR_GENERAL} ${err.message}`;
+                        document.getElementById("adsError").innerHTML = `<h5 class="text-center">${ERR_GENERAL_ALREADY_DONE} </h5>`;
 
                     }).finally(() => {
                     hide("spin");

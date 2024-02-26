@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,25 +13,25 @@
     <h1>Login Page</h1>
 </div>
 <div class = "container-fluid">
-<%- include('headers/menuButtons') %>
-<div class ="row text-center">
+    <%- include('headers/menuButtons') %>
+    <div class ="row text-center">
 
-<form action="/admin-area" method="post">
-    <div class="form1 form-floating mb-3">
-        <input class="form-control" id="userName" name="userName" placeholder="userName">
-        <label for="userName">User Name</label>
+        <form action="/admin-area" method="post">
+            <div class="form1 form-floating mb-3">
+                <input class="form-control" id="userName" name="userName" placeholder="userName">
+                <label for="userName">User Name</label>
+            </div>
+            <div class="form1 form-floating mb-3">
+                <input class="form-control" id="pass" type="password" name="password" placeholder="password">
+                <label for="pass">Password</label>
+            </div>
+
+            <button class="btn btn-lg btn-success mb-1"  type="submit">Login</button>
+        </form>
+        <br>
+        <h4><%= message %></h4>
+
     </div>
-    <div class="form1 form-floating mb-3">
-        <input class="form-control" id="pass" type="text" name="password" placeholder="password">
-        <label for="pass">Password</label>
-    </div>
-
-    <button class="btn btn-lg btn-success mb-1"  type="submit" class="button is-success">Login</button>
-</form>
-    <br>
-    <h4><%= message %></h4>
-
-</div>
 </div>
 </body>
 </html>

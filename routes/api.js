@@ -1,28 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const db = require('../models');
+const apiController = require('../controllers/apicontroller');
 
 
-//אם נספיק להוסיף את הבונוס של החיפוש נעדכן חלק זה
-/*router.get('/ads/:title-contain', (req, res) => {
-    return db.Ads.findAll({where: {lastName: req.params.lastName}})
-        .then((contacts) => res.send(contacts))
-        .catch((err) => {
-            console.log('There was an error querying contacts', JSON.stringify(err))
-            return res.status(400).send(err)
-        });
-});*/
 
-router.get('/ads/approved', (req, res) => {
-    return db.Ad.findAll({
-        where: { approved: true},
-        order: [['createdAt', 'DESC']]
-    })
-        .then((ads) => res.send(ads))
-        .catch((err) => {
-            err.error = 1;
-            return res.status(400).send(err)
-        });
-});
-
+router.get('/ads/approved',apiController.getAdApproved);
+router.get('/ads/search',apiController.getSearch);
 module.exports = router;
